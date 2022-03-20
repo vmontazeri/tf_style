@@ -26,8 +26,8 @@ def parse_args():
 
   parser.add_argument('--style_imgs', nargs='+', type=str,
     help='Filenames of the style images (example: starry-night.jpg)', 
-    required=True)
-  
+    required=False)
+
   parser.add_argument('--style_imgs_weights', nargs='+', type=float,
     default=[1.0],
     help='Interpolation weights of each of the style images. (example: 0.5 0.5)')
@@ -602,7 +602,7 @@ def minimize_with_lbfgs(sess, net, optimizer, init_img):
   init_op = tf.global_variables_initializer()
   sess.run(init_op)
   sess.run(net['input'].assign(init_img))
-  optimizer.minimize(sess)
+  optimizer.minimize(sess, step_callback=test)
 
 def minimize_with_adam(sess, net, optimizer, init_img, loss):
   if args.verbose: print('\nMINIMIZING LOSS USING: ADAM OPTIMIZER')
@@ -618,13 +618,16 @@ def minimize_with_adam(sess, net, optimizer, init_img, loss):
       print("At iterate {}\tf=  {}".format(iterations, curr_loss))
     iterations += 1
 
+def test(x):
+  print("hi")
+
 def get_optimizer(loss):
   print_iterations = args.print_iterations if args.verbose else 0
   if args.optimizer == 'lbfgs':
     optimizer = tf.contrib.opt.ScipyOptimizerInterface(
       loss, method='L-BFGS-B',
       options={'maxiter': args.max_iterations,
-                  'disp': print_iterations})
+                  'disp': 1})
   elif args.optimizer == 'adam':
     optimizer = tf.train.AdamOptimizer(args.learning_rate)
   return optimizer
@@ -851,6 +854,8 @@ def render_video():
 def main():
   global args
   args = parse_args()
+  args.style_imgs = ["kandinsky.jpg"]
+  args.content_img = "face.jpg"
   if args.video: render_video()
   else: render_single_image()
 
