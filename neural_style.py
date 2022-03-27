@@ -550,16 +550,16 @@ def stylize(content_img, style_imgs, init_img, frame=None):
   with tf.device(args.device), tf.Session() as sess:
     # setup network
     net = build_model(content_img)
-    
+
     # style loss
     if args.style_mask:
       L_style = sum_masked_style_losses(sess, net, style_imgs)
     else:
       L_style = sum_style_losses(sess, net, style_imgs)
-    
+
     # content loss
     L_content = sum_content_losses(sess, net, content_img)
-    
+
     # denoising loss
     L_tv = tf.image.total_variation(net['input'])
     
@@ -618,8 +618,18 @@ def minimize_with_adam(sess, net, optimizer, init_img, loss):
       print("At iterate {}\tf=  {}".format(iterations, curr_loss))
     iterations += 1
 
+global counter
+def set_callback():
+  global counter
+  counter = 0
+
 def test(x):
+  global counter
   print("hi")
+  print(tf.shape(x))
+  x1 = np.reshape(x, newshape=(1,512,384,3))
+  write_image('./intermediate_images/img{i}.png'.format(i=counter), x1)
+  counter += 1
 
 def get_optimizer(loss):
   print_iterations = args.print_iterations if args.verbose else 0
@@ -823,6 +833,7 @@ def render_single_image():
   with tf.Graph().as_default():
     print('\n---- RENDERING SINGLE IMAGE ----\n')
     init_img = get_init_image(args.init_img_type, content_img, style_imgs)
+    # init_img = get_init_image('random', content_img, style_imgs)
     tick = time.time()
     stylize(content_img, style_imgs, init_img)
     tock = time.time()
@@ -856,6 +867,7 @@ def main():
   args = parse_args()
   args.style_imgs = ["kandinsky.jpg"]
   args.content_img = "face.jpg"
+  set_callback()
   if args.video: render_video()
   else: render_single_image()
 
