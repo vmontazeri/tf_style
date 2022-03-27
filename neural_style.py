@@ -7,6 +7,7 @@ import errno
 import time                       
 import cv2
 import os
+from scipy.io import savemat
 
 '''
   parsing and configuration
@@ -570,7 +571,7 @@ def stylize(content_img, style_imgs, init_img, frame=None):
     
     # total loss
     L_total  = alpha * L_content
-    L_total += beta  * L_style
+    # L_total = beta  * L_style
     L_total += theta * L_tv
     
     # video temporal loss
@@ -588,6 +589,11 @@ def stylize(content_img, style_imgs, init_img, frame=None):
       minimize_with_lbfgs(sess, net, optimizer, init_img)
     
     output_img = sess.run(net['input'])
+
+    for layer in args.content_layers:
+      layer_features = sess.run(net[layer])
+      savemat('{l}.mat'.format(l=layer), {'feature_space':layer_features})
+
     
     if args.original_colors:
       output_img = convert_to_original_colors(np.copy(content_img), output_img)
@@ -619,14 +625,13 @@ def minimize_with_adam(sess, net, optimizer, init_img, loss):
     iterations += 1
 
 global counter
-def set_callback():
+def setup_callback():
   global counter
   counter = 0
 
 def test(x):
   global counter
   print("hi")
-  print(tf.shape(x))
   x1 = np.reshape(x, newshape=(1,512,384,3))
   write_image('./intermediate_outputs/img{i}.png'.format(i=counter), x1)
   counter += 1
@@ -699,6 +704,9 @@ def get_init_image(init_type, content_img, style_imgs, frame=None):
   elif init_type == 'random':
     init_img = get_noise_image(args.noise_ratio, content_img)
     return init_img
+  elif init_type == 'white':
+    init_img = get_white_image(content_img)
+    return init_img
   # only for video frames
   elif init_type == 'prev':
     init_img = get_prev_frame(frame)
@@ -750,6 +758,9 @@ def get_noise_image(noise_ratio, content_img):
   noise_img = np.random.uniform(-20., 20., content_img.shape).astype(np.float32)
   img = noise_ratio * noise_img + (1.-noise_ratio) * content_img
   return img
+
+def get_white_image(content_img):
+  return np.ones(shape=content_img.shape)*0
 
 def get_mask_image(mask_img, width, height):
   path = os.path.join(args.content_img_dir, mask_img)
@@ -867,7 +878,9 @@ def main():
   args = parse_args()
   args.style_imgs = ["kandinsky.jpg"]
   args.content_img = "face.jpg"
-  set_callback()
+  args.content_layers = ['conv5_4']
+  args.init_img_type = 'random'
+  setup_callback()
   if args.video: render_video()
   else: render_single_image()
 
