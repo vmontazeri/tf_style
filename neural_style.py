@@ -628,7 +628,7 @@ def test(x):
   print("hi")
   print(tf.shape(x))
   x1 = np.reshape(x, newshape=(1,512,384,3))
-  write_image('./intermediate_images/img{i}.png'.format(i=counter), x1)
+  write_image('./intermediate_outputs/img{i}.png'.format(i=counter), x1)
   counter += 1
 
 def get_optimizer(loss):
