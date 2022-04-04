@@ -880,6 +880,7 @@ def main():
   args.content_img = "face.jpg"
   args.content_layers = ['conv5_4']
   args.init_img_type = 'random'
+  args.verbose = True
   setup_callback()
   if args.video: render_video()
   else: render_single_image()
