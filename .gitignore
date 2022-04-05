@@ -1,5 +1,12 @@
 # Byte-compiled / optimized / DLL files
 
+*.npy
+*.wav
+*.avi
+*.mp4
+*.pkf
+
+
 *.png
 
 *.mat
