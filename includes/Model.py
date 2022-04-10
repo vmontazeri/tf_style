@@ -134,6 +134,7 @@ class M1(nn.Module):
             in_channels=self.L_size[i - 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
             padding=(w_pad, h_pad), stride=self.stride[i]
         )
+        i += 1
 
         h_pad = self.get_pad_size(w_in=h_, s=2, k=2, w_out=int(h_ / 2))
         w_pad = self.get_pad_size(w_in=w_, s=2, k=2, w_out=int(w_ / 2))
@@ -177,6 +178,82 @@ class M1(nn.Module):
         w_pad = self.get_pad_size(w_in=w_, s=2, k=2, w_out=int(w_ / 2))
         l5_pool = nn.AvgPool2d(kernel_size=(2,2), stride=(2,2), padding=(h_pad, w_pad))
 
+        ################################
+        i -= 1
+        h_ = int(h_ * 2)
+        w_ = int(w_ * 2)
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l6_1 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+        i -= 1
+
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l6_2 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+        i -= 1
+
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l6_3 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+        i -= 1
+
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l6_4 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+
+        ###############
+        i -= 1
+        h_ = int(h_ * 2)
+        w_ = int(w_ * 2)
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l7_1 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+        i -= 1
+
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l7_2 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+        i -= 1
+
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l7_3 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+        i -= 1
+
+        h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
+        w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])
+        l7_4 = nn.Conv2d(
+            in_channels=self.L_size[i + 1], out_channels=self.L_size[i], kernel_size=self.kernel_size[i],
+            padding=(w_pad, h_pad), stride=self.stride[i]
+        )
+
+        # fl = nn.Flatten()
+        # lin1 = nn.Linear(98304,98304)
+        # lin2 = nn.Linear(98304,98304)
+        # lin3 = nn.Linear(98304,98304)
+
+
         self.net.add_module('l1_1', l1_1)
         self.net.add_module('l1_2', l1_2)
         self.net.add_module('l1_pool', l1_pool)
@@ -198,6 +275,15 @@ class M1(nn.Module):
         self.net.add_module('l5_3', l5_3)
         self.net.add_module('l5_4', l5_4)
         self.net.add_module('l5_pool', l5_pool)
+        self.net.add_module('l6_1', l6_1)
+        self.net.add_module('l6_2', l6_2)
+        self.net.add_module('l6_3', l6_3)
+        self.net.add_module('l6_4', l6_4)
+        self.net.add_module('l7_1', l7_1)
+        self.net.add_module('l7_2', l7_2)
+        self.net.add_module('l7_3', l7_3)
+        self.net.add_module('l7_4', l7_4)
+        # self.net.add_module('flatten', fl)
 
         color_print('Initiated the M1 model', type_='success')
 
