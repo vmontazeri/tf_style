@@ -1,0 +1,34 @@
+clear
+close all
+clc
+
+file_name = 'mel_features_img_relu1_1.mat';
+load(file_name)
+
+feature_space = squeeze(feature_space);
+
+% Bfig(1)
+% imagesc(feature_space)
+
+Bfig(1)
+for i = 1 : size(feature_space,3)
+imagesc(feature_space(:,:,i))
+title(i)
+input('')
+end
+
+%%
+clear
+close all
+clc
+
+load('test.mat')
+mel_ = [];
+
+Bfig(1)
+imagesc(squeeze(mel(1,:,:))')
+set(gca, 'YDir', 'normal')
+
+Bfig(2)
+imagesc(squeeze(mel(2,:,:))')
+set(gca, 'YDir', 'normal')

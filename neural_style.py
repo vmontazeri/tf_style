@@ -81,6 +81,10 @@ def parse_args():
   parser.add_argument('--style_layers', nargs='+', type=str,
     default=['relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1'],
     help='VGG19 layers used for the style image. (default: %(default)s)')
+
+  parser.add_argument('--audio_layers', nargs='+', type=str,
+    default=['relu2_1', 'relu3_1', 'relu4_1', 'relu5_1'],
+    help='layers used for the audio. (default: %(default)s)')
   
   parser.add_argument('--content_layer_weights', nargs='+', type=float, 
     default=[1.0], 
@@ -232,11 +236,145 @@ def parse_args():
   remark: layers are manually initialized for clarity.
 '''
 
+def build_audio_model(audio_mel):
+  if args.verbose: print('Audio model')
+  net = {}
+  _, h_t, w_1, d_f = audio_mel.shape
+  if args.verbose: print('constructing layers...')
+  net['input']   = tf.Variable(np.zeros((1, h_t, w_1, d_f), dtype=np.float32))
+  if args.verbose: print('LAYER GROUP 1')
+  temp = tf.constant( np.random.rand(3,1,d_f,128).astype(np.float32) )
+  bias_ = tf.constant( np.random.rand(1).astype(np.float32) )
+  net['conv1_1'] = conv_layer('conv1_1', net['input'], W=temp)
+  net['relu1_1'] = relu_layer('relu1_1', net['conv1_1'], b=bias_)
+
+  temp = tf.constant(np.random.rand(3, 1, 128, 128).astype(np.float32))
+  bias_ = tf.constant(np.random.rand(1).astype(np.float32))
+  net['conv1_2'] = conv_layer('conv1_2', net['relu1_1'], W=temp)
+  net['relu1_2'] = relu_layer('relu1_2', net['conv1_2'], b=bias_)
+
+  net['pool1'] = pool_layer('pool1', net['relu1_2'])
+
+  if args.verbose: print('LAYER GROUP 2')
+  temp = tf.constant(np.random.rand(3, 1, 128, 256).astype(np.float32))
+  bias_ = tf.constant(np.random.rand(1).astype(np.float32))
+  net['conv2_1'] = conv_layer('conv2_1', net['pool1'], W=temp)
+  net['relu2_1'] = relu_layer('relu2_1', net['conv2_1'], b=bias_)
+
+  temp = tf.constant(np.random.rand(3, 1, 256,256).astype(np.float32))
+  bias_ = tf.constant(np.random.rand(1).astype(np.float32))
+  net['conv2_2'] = conv_layer('conv2_2', net['relu2_1'], W=temp)
+  net['relu2_2'] = relu_layer('relu2_2', net['conv2_2'], b=bias_)
+
+  net['pool2'] = pool_layer('pool2', net['relu2_2'])
+
+  if args.verbose: print('LAYER GROUP 3')
+  temp = tf.constant(np.random.rand(3, 1, 256, 512).astype(np.float32))
+  bias_ = tf.constant(np.random.rand(1).astype(np.float32))
+  net['conv3_1'] = conv_layer('conv3_1', net['pool2'], W=temp) # filter out 512
+  net['relu3_1'] = relu_layer('relu3_1', net['conv3_1'], b=bias_)
+
+  temp = tf.constant(np.random.rand(3, 1, 256, 512).astype(np.float32))
+  bias_ = tf.constant(np.random.rand(1).astype(np.float32))
+  net['conv3_2'] = conv_layer('conv3_2', net['relu3_1'], W=temp)
+  net['relu3_2'] = relu_layer('relu3_2', net['conv3_2'], b=bias_)
+
+  temp = tf.constant(np.random.rand(3, 1, 256, 512).astype(np.float32))
+  bias_ = tf.constant(np.random.rand(1).astype(np.float32))
+  net['conv3_3'] = conv_layer('conv3_3', net['relu3_2'], W=temp)
+  net['relu3_3'] = relu_layer('relu3_3', net['conv3_3'], b=bias_)
+
+  temp = tf.constant(np.random.rand(3, 1, 256, 512).astype(np.float32))
+  bias_ = tf.constant(np.random.rand(1).astype(np.float32))
+  net['conv3_4'] = conv_layer('conv3_4', net['relu3_3'], W=temp)
+  net['relu3_4'] = relu_layer('relu3_4', net['conv3_4'], b=bias_)
+
+  net['pool3'] = pool_layer('pool3', net['relu3_4'])
+
+  return net
+
+
+def build_model2(input_img):
+  if args.verbose: print('\nBUILDING VGG-19 NETWORK')
+  net = {}
+  _, h, w, d = input_img.shape
+
+  if args.verbose: print('loading model weights...')
+  vgg_rawnet = scipy.io.loadmat(args.model_weights)
+  vgg_layers = vgg_rawnet['layers'][0]
+  if args.verbose: print('constructing layers...')
+  net['input'] = tf.Variable(np.zeros((1, h, w, d), dtype=np.float32))
+
+  # if args.verbose: print('LAYER GROUP 1')
+  # net['conv1_1'] = conv_layer('conv1_1', net['input'], W=get_weights(vgg_layers, 0))
+  # net['relu1_1'] = relu_layer('relu1_1', net['conv1_1'], b=get_bias(vgg_layers, 0))
+  #
+  # net['conv1_2'] = conv_layer('conv1_2', net['relu1_1'], W=get_weights(vgg_layers, 2))
+  # net['relu1_2'] = relu_layer('relu1_2', net['conv1_2'], b=get_bias(vgg_layers, 2))
+  #
+  # net['pool1'] = pool_layer('pool1', net['relu1_2'])
+
+  if args.verbose: print('LAYER GROUP 2')
+  net['conv2_1'] = conv_layer('conv2_1', net['input'], W=get_weights(vgg_layers, 5))  # filter out 128
+  net['relu2_1'] = relu_layer('relu2_1', net['conv2_1'], b=get_bias(vgg_layers, 5))
+
+  net['conv2_2'] = conv_layer('conv2_2', net['relu2_1'], W=get_weights(vgg_layers, 7))
+  net['relu2_2'] = relu_layer('relu2_2', net['conv2_2'], b=get_bias(vgg_layers, 7))
+
+  net['pool2'] = pool_layer('pool2', net['relu2_2'])
+
+  if args.verbose: print('LAYER GROUP 3')
+  net['conv3_1'] = conv_layer('conv3_1', net['pool2'], W=get_weights(vgg_layers, 10))  # filter out 256
+  net['relu3_1'] = relu_layer('relu3_1', net['conv3_1'], b=get_bias(vgg_layers, 10))
+
+  net['conv3_2'] = conv_layer('conv3_2', net['relu3_1'], W=get_weights(vgg_layers, 12))
+  net['relu3_2'] = relu_layer('relu3_2', net['conv3_2'], b=get_bias(vgg_layers, 12))
+
+  net['conv3_3'] = conv_layer('conv3_3', net['relu3_2'], W=get_weights(vgg_layers, 14))
+  net['relu3_3'] = relu_layer('relu3_3', net['conv3_3'], b=get_bias(vgg_layers, 14))
+
+  net['conv3_4'] = conv_layer('conv3_4', net['relu3_3'], W=get_weights(vgg_layers, 16))
+  net['relu3_4'] = relu_layer('relu3_4', net['conv3_4'], b=get_bias(vgg_layers, 16))
+
+  net['pool3'] = pool_layer('pool3', net['relu3_4'])
+
+  if args.verbose: print('LAYER GROUP 4')
+  net['conv4_1'] = conv_layer('conv4_1', net['pool3'], W=get_weights(vgg_layers, 19))  # filter out 512
+  net['relu4_1'] = relu_layer('relu4_1', net['conv4_1'], b=get_bias(vgg_layers, 19))
+
+  net['conv4_2'] = conv_layer('conv4_2', net['relu4_1'], W=get_weights(vgg_layers, 21))
+  net['relu4_2'] = relu_layer('relu4_2', net['conv4_2'], b=get_bias(vgg_layers, 21))
+
+  net['conv4_3'] = conv_layer('conv4_3', net['relu4_2'], W=get_weights(vgg_layers, 23))
+  net['relu4_3'] = relu_layer('relu4_3', net['conv4_3'], b=get_bias(vgg_layers, 23))
+
+  net['conv4_4'] = conv_layer('conv4_4', net['relu4_3'], W=get_weights(vgg_layers, 25))
+  net['relu4_4'] = relu_layer('relu4_4', net['conv4_4'], b=get_bias(vgg_layers, 25))
+
+  net['pool4'] = pool_layer('pool4', net['relu4_4'])
+
+  if args.verbose: print('LAYER GROUP 5')
+  net['conv5_1'] = conv_layer('conv5_1', net['pool4'], W=get_weights(vgg_layers, 28))  # filter out 512
+  net['relu5_1'] = relu_layer('relu5_1', net['conv5_1'], b=get_bias(vgg_layers, 28))
+
+  net['conv5_2'] = conv_layer('conv5_2', net['relu5_1'], W=get_weights(vgg_layers, 30))
+  net['relu5_2'] = relu_layer('relu5_2', net['conv5_2'], b=get_bias(vgg_layers, 30))
+
+  net['conv5_3'] = conv_layer('conv5_3', net['relu5_2'], W=get_weights(vgg_layers, 32))
+  net['relu5_3'] = relu_layer('relu5_3', net['conv5_3'], b=get_bias(vgg_layers, 32))
+
+  net['conv5_4'] = conv_layer('conv5_4', net['relu5_3'], W=get_weights(vgg_layers, 34))
+  net['relu5_4'] = relu_layer('relu5_4', net['conv5_4'], b=get_bias(vgg_layers, 34))
+
+  net['pool5'] = pool_layer('pool5', net['relu5_4'])
+
+  return net
+
 def build_model(input_img):
   if args.verbose: print('\nBUILDING VGG-19 NETWORK')
   net = {}
   _, h, w, d     = input_img.shape
-  
+
   if args.verbose: print('loading model weights...')
   vgg_rawnet     = scipy.io.loadmat(args.model_weights)
   vgg_layers     = vgg_rawnet['layers'][0]
@@ -253,7 +391,7 @@ def build_model(input_img):
   net['pool1']   = pool_layer('pool1', net['relu1_2'])
 
   if args.verbose: print('LAYER GROUP 2')  
-  net['conv2_1'] = conv_layer('conv2_1', net['pool1'], W=get_weights(vgg_layers, 5))
+  net['conv2_1'] = conv_layer('conv2_1', net['pool1'], W=get_weights(vgg_layers, 5)) # filter out 128
   net['relu2_1'] = relu_layer('relu2_1', net['conv2_1'], b=get_bias(vgg_layers, 5))
   
   net['conv2_2'] = conv_layer('conv2_2', net['relu2_1'], W=get_weights(vgg_layers, 7))
@@ -262,7 +400,7 @@ def build_model(input_img):
   net['pool2']   = pool_layer('pool2', net['relu2_2'])
   
   if args.verbose: print('LAYER GROUP 3')
-  net['conv3_1'] = conv_layer('conv3_1', net['pool2'], W=get_weights(vgg_layers, 10))
+  net['conv3_1'] = conv_layer('conv3_1', net['pool2'], W=get_weights(vgg_layers, 10)) # filter out 256
   net['relu3_1'] = relu_layer('relu3_1', net['conv3_1'], b=get_bias(vgg_layers, 10))
 
   net['conv3_2'] = conv_layer('conv3_2', net['relu3_1'], W=get_weights(vgg_layers, 12))
@@ -277,7 +415,7 @@ def build_model(input_img):
   net['pool3']   = pool_layer('pool3', net['relu3_4'])
 
   if args.verbose: print('LAYER GROUP 4')
-  net['conv4_1'] = conv_layer('conv4_1', net['pool3'], W=get_weights(vgg_layers, 19))
+  net['conv4_1'] = conv_layer('conv4_1', net['pool3'], W=get_weights(vgg_layers, 19)) # filter out 512
   net['relu4_1'] = relu_layer('relu4_1', net['conv4_1'], b=get_bias(vgg_layers, 19))
 
   net['conv4_2'] = conv_layer('conv4_2', net['relu4_1'], W=get_weights(vgg_layers, 21))
@@ -292,7 +430,7 @@ def build_model(input_img):
   net['pool4']   = pool_layer('pool4', net['relu4_4'])
 
   if args.verbose: print('LAYER GROUP 5')
-  net['conv5_1'] = conv_layer('conv5_1', net['pool4'], W=get_weights(vgg_layers, 28))
+  net['conv5_1'] = conv_layer('conv5_1', net['pool4'], W=get_weights(vgg_layers, 28)) # filter out 512
   net['relu5_1'] = relu_layer('relu5_1', net['conv5_1'], b=get_bias(vgg_layers, 28))
 
   net['conv5_2'] = conv_layer('conv5_2', net['relu5_1'], W=get_weights(vgg_layers, 30))
@@ -410,7 +548,7 @@ def sum_style_losses(sess, net, style_imgs):
   for img, img_weight in zip(style_imgs, weights):
     sess.run(net['input'].assign(img))
     style_loss = 0.
-    for layer, weight in zip(args.style_layers, args.style_layer_weights):
+    for layer, weight in zip(args.audio_layers, args.style_layer_weights):
       a = sess.run(net[layer])
       x = net[layer]
       a = tf.convert_to_tensor(a)
@@ -549,8 +687,37 @@ def check_image(img, path):
 '''
 def stylize(content_img, style_imgs, init_img, frame=None):
   with tf.device(args.device), tf.Session() as sess:
+
+    # from scipy.io import loadmat
+    # mel_features = loadmat('test.mat')['mel'].astype(np.float32)
+    # mel_features = np.expand_dims(mel_features, 0)
+    # mel_features =
+    # print(np.min(mel_features))
+    # print(np.max(mel_features))
+    # mel_features = 255*mel_features / np.max(mel_features)
+    # mel_features_img = np.transpose(mel_features, (0,1,3,2))
+    # mel_features_img = np.concatenate((mel_features_img,mel_features_img),3)
+    # mel_features_img = np.concatenate((np.transpose(mel_features, (0,1,3,2)), mel_features_img), 3)
+
+    # mel_features_img = np.random.rand(1,350,153,64).astype(np.float32)
+    # content_img = content_img[:,:350,:153,:]
+    # init_img = init_img[:,:350,:153,:]
+
+    # mel_features = np.concatenate((mel_features,mel_features[:,:512-350,:,:]), 1)
+    # mel_features = np.concatenate((mel_features, mel_features), 2)
+    # mel_features = np.concatenate((mel_features, mel_features[:,:,:384-306,:]), 2)
+    # mel_features = 255*mel_features / np.max(mel_features)
+
     # setup network
+    # net_audio = build_model2(mel_features)
     net = build_model(content_img)
+
+    # sess.run(net['input'].assign(mel_features))
+    # for layer in args.audio_layers:
+    #   layer_features = sess.run(net[layer])
+    #   savemat('./intermediate_outputs/mel_features_img_{l}.mat'.format(l=layer), {'feature_space': layer_features})
+
+    # audio_net = build_audio_model(mel_features)
 
     # style loss
     if args.style_mask:
@@ -571,7 +738,7 @@ def stylize(content_img, style_imgs, init_img, frame=None):
     
     # total loss
     L_total  = alpha * L_content
-    # L_total = beta  * L_style
+    L_total += beta  * L_style
     L_total += theta * L_tv
     
     # video temporal loss
@@ -579,6 +746,16 @@ def stylize(content_img, style_imgs, init_img, frame=None):
       gamma      = args.temporal_weight
       L_temporal = sum_shortterm_temporal_losses(sess, net, frame, init_img)
       L_total   += gamma * L_temporal
+
+    # sess.run(net['input'].assign(mel_features_img))
+    # for layer in args.style_layers:
+    #   layer_features = sess.run(net[layer])
+    #   savemat('./intermediate_outputs/mel_features_img_{l}.mat'.format(l=layer), {'feature_space':layer_features})
+
+    # sess.run(audio_net['input'].assign(mel_features))
+    # for layer in args.audio_layers:
+    #   layer_features = sess.run(audio_net[layer])
+    #   savemat('./intermediate_outputs/audio_features_{l}.mat'.format(l=layer), {'feature_space':layer_features})
 
     # optimization algorithm
     optimizer = get_optimizer(L_total)
@@ -590,11 +767,6 @@ def stylize(content_img, style_imgs, init_img, frame=None):
     
     output_img = sess.run(net['input'])
 
-    for layer in args.content_layers:
-      layer_features = sess.run(net[layer])
-      savemat('{l}.mat'.format(l=layer), {'feature_space':layer_features})
-
-    
     if args.original_colors:
       output_img = convert_to_original_colors(np.copy(content_img), output_img)
 
@@ -632,8 +804,10 @@ def setup_callback():
 def test(x):
   global counter
   print("hi")
-  x1 = np.reshape(x, newshape=(1,512,384,3))
-  write_image('./intermediate_outputs/img{i}.png'.format(i=counter), x1)
+  print(np.shape(x))
+  # x1 = np.reshape(x, newshape=(1,350,153,3))
+  # init_img[:, :350, :153, :]
+  # write_image('./intermediate_outputs/img{i}.png'.format(i=counter), x1)
   counter += 1
 
 def get_optimizer(loss):
@@ -841,6 +1015,11 @@ def convert_to_original_colors(content_img, stylized_img):
 def render_single_image():
   content_img = get_content_image(args.content_img)
   style_imgs = get_style_images(content_img)
+
+  # content_img = np.random.rand(1,512,1,384)
+  # style_imgs = [np.random.randn(1,512,1,384)]
+
+
   with tf.Graph().as_default():
     print('\n---- RENDERING SINGLE IMAGE ----\n')
     init_img = get_init_image(args.init_img_type, content_img, style_imgs)
@@ -876,9 +1055,9 @@ def render_video():
 def main():
   global args
   args = parse_args()
-  args.style_imgs = ["kandinsky.jpg"]
-  args.content_img = "face.jpg"
-  args.content_layers = ['conv5_4']
+  args.style_imgs = ["the_scream.jpg"]
+  args.content_img = "clustering.jpg"
+  # args.content_layers = ['conv5_4']
   args.init_img_type = 'random'
   args.verbose = True
   setup_callback()

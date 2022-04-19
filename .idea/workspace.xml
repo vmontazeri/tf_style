@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0d287ea-4c5c-45b4-8be7-ce192ed5bffe" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/get_features.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural-style-audio-tf-master/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/includes/Model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readVideo.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_output/result/content.png" beforeDir="false" afterPath="$PROJECT_DIR$/image_output/result/content.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_output/result/meta_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/image_output/result/meta_data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_output/result/style_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/image_output/result/style_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_style.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_style.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/texture_matlab/main.asv" beforeDir="false" afterPath="$PROJECT_DIR$/texture_matlab/main.asv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/texture_matlab/main.m" beforeDir="false" afterPath="$PROJECT_DIR$/texture_matlab/main.m" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,7 +24,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sound2image.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
+            <state relative-caret-position="576">
               <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
@@ -44,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/includes/Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="571">
-              <caret line="231" column="41" lean-forward="true" selection-start-line="231" selection-start-column="41" selection-end-line="231" selection-end-column="41" />
+            <state relative-caret-position="4584">
+              <caret line="194" column="19" selection-start-line="194" selection-start-column="19" selection-end-line="194" selection-end-column="19" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -65,13 +72,52 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/neural_style.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="146">
+              <caret line="1057" column="32" selection-start-line="1057" selection-start-column="32" selection-end-line="1057" selection-end-column="32" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/Program Files/Python36/Lib/site-packages/tensorflow/contrib/opt/python/training/external_optimizer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="206" selection-start-line="206" selection-end-line="206" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/Program Files/Python36/Lib/site-packages/tensorflow/python/framework/ops.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="1874" selection-start-line="1874" selection-end-line="1874" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/Program Files/Python36/Lib/site-packages/numpy/core/fromnumeric.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="65" selection-start-line="65" selection-end-line="65" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/get_features.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="277">
+              <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,6 +136,22 @@
     <findStrings>
       <find>verbose</find>
       <find>pool_layer</find>
+      <find>buil</find>
+      <find>content_layers</find>
+      <find>constant</find>
+      <find>tf.constant</find>
+      <find>.assign</find>
+      <find>style_layers</find>
+      <find>audio_layers</find>
+      <find>style_imgs_weights</find>
+      <find>build_model</find>
+      <find>build_model2</find>
+      <find>test</find>
+      <find>def test</find>
+      <find>iter</find>
+      <find>stylize</find>
+      <find>style_we</find>
+      <find>def stylize</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -98,13 +160,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/neural_style.py" />
         <option value="$PROJECT_DIR$/includes/ArgParser.py" />
         <option value="$PROJECT_DIR$/sound2image.py" />
         <option value="$PROJECT_DIR$/readVideo.py" />
         <option value="$PROJECT_DIR$/includes/Utils.py" />
         <option value="$PROJECT_DIR$/preprocess.py" />
         <option value="$PROJECT_DIR$/includes/Model.py" />
+        <option value="$PROJECT_DIR$/neural-style-audio-tf-master/main.py.txt" />
+        <option value="$PROJECT_DIR$/get_features.py" />
+        <option value="$PROJECT_DIR$/neural_style.py" />
       </list>
     </option>
   </component>
@@ -113,12 +177,12 @@
     <option name="width" value="1682" />
     <option name="height" value="1096" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -135,6 +199,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -154,7 +219,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.sound2image">
+  <component name="RunManager" selected="Python.neural_style">
+    <configuration name="get_features" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="neural-style-tf" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_features.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="neural_style" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="neural-style-tf" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -220,9 +306,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.neural_style" />
+        <item itemvalue="Python.get_features" />
         <item itemvalue="Python.sound2image" />
         <item itemvalue="Python.readVideo" />
-        <item itemvalue="Python.neural_style" />
       </list>
     </recent_temporary>
   </component>
@@ -243,13 +330,13 @@
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18518518" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49752066" visible="true" weight="0.16067538" />
+      <window_info id="Structure" order="1" sideWeight="0.5024793" side_tool="true" visible="true" weight="0.16067538" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32917964" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.36967808" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32917964" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.37175494" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -266,11 +353,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/neural_style.py</url>
-          <line>306</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/preprocess.py</url>
           <line>42</line>
           <option name="timeStamp" value="9" />
@@ -280,59 +362,152 @@
           <line>24</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/neural_style.py</url>
+          <line>767</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/neural_style.py</url>
+          <line>765</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/neural_style.py</url>
+          <line>740</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
-        <expression-string>h_pad = self.get_pad_size(w_in=h_, s=self.stride[i], k=self.kernel_size[i])
-w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])</expression-string>
+        <expression-string>np.min(mel_features)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>i -= 1</expression-string>
+        <expression-string>np.max(mel_features)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>frames[counter, :, :, :] = frame</expression-string>
+        <expression-string>mel_features = np.concatenate((mel_features, mel_features[:,:,:384-306,:]), 2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>print('Writing {counter} frames in Chaplin_512kb.npy'.format(counter=counter))</expression-string>
+        <expression-string>mel_features = np.concatenate((mel_features, mel_features), 2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>print('Writing {counter} frames in Chaplin_512kb.npy'.format(counter))</expression-string>
+        <expression-string>384-153</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>print('Writing {counter} frames in Chaplin_512kb.npy')</expression-string>
+        <expression-string>512-350</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>frames = np.reshape(frame, )</expression-string>
+        <expression-string>from scipy.io import loadmat
+mel_features = loadmat('test.mat')['mel'].astype(np.float32)
+mel_features = np.expand_dims(mel_features, 0)
+# mel_features =
+# print(np.min(mel_features))
+# print(np.max(mel_features))
+# mel_features = 255*mel_features / np.max(mel_features)
+# mel_features_img = np.transpose(mel_features, (0,1,3,2))
+# mel_features_img = np.concatenate((mel_features_img,mel_features_img),3)
+# mel_features_img = np.concatenate((np.transpose(mel_features, (0,1,3,2)), mel_features_img), 3)
+# mel_features_img = np.random.rand(1,350,153,64).astype(np.float32)
+content_img = content_img[:,:350,:153,:]
+init_img = init_img[:,:350,:153,:]
+mel_features = np.concatenate((mel_features,mel_features[:,:512-350,:,:]), 1)
+mel_features = np.concatenate((mel_features, mel_features[:,:,:384-153,:]), 2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>frames = np.reshape(frame, (2,0,1))</expression-string>
+        <expression-string>from scipy.io import loadmat
+mel_features = loadmat('test.mat')['mel'].astype(np.float32)
+mel_features = np.expand_dims(mel_features, 0)
+# mel_features =
+# print(np.min(mel_features))
+# print(np.max(mel_features))
+# mel_features = 255*mel_features / np.max(mel_features)
+# mel_features_img = np.transpose(mel_features, (0,1,3,2))
+# mel_features_img = np.concatenate((mel_features_img,mel_features_img),3)
+# mel_features_img = np.concatenate((np.transpose(mel_features, (0,1,3,2)), mel_features_img), 3)
+# mel_features_img = np.random.rand(1,350,153,64).astype(np.float32)
+content_img = content_img[:,:350,:153,:]
+init_img = init_img[:,:350,:153,:]
+mel_features = np.concatenate((mel_features,mel_features[:,512-350,:,:]), 1)
+mel_features = np.concatenate((mel_features, mel_features[:,:,:384-153,:]), 2)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>from scipy.io import loadmat
+mel_features = loadmat('test.mat')['mel'].astype(np.float32)
+mel_features = np.expand_dims(mel_features, 0)
+# mel_features =
+# print(np.min(mel_features))
+# print(np.max(mel_features))
+# mel_features = 255*mel_features / np.max(mel_features)
+# mel_features_img = np.transpose(mel_features, (0,1,3,2))
+# mel_features_img = np.concatenate((mel_features_img,mel_features_img),3)
+# mel_features_img = np.concatenate((np.transpose(mel_features, (0,1,3,2)), mel_features_img), 3)
+# mel_features_img = np.random.rand(1,350,153,64).astype(np.float32)
+# content_img = content_img[:,:350,:153,:]
+# init_img = init_img[:,:350,:153,:]
+mel_features = np.concatenate((mel_features,mel_features[:,:512-350,:,:]), 1)
+mel_features = np.concatenate((mel_features, mel_features[:,:,:384-153,:]), 2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/neural-style-audio-tf-master/main.py.txt" />
+    <entry file="file://C:/Program Files/Python36/Lib/site-packages/tensorflow/python/util/deprecation_wrapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sound2image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/includes/Utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
           <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4584">
+          <caret line="194" column="19" selection-start-line="194" selection-start-column="19" selection-end-line="194" selection-end-column="19" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -346,36 +521,43 @@ w_pad = self.get_pad_size(w_in=w_, s=self.stride[i], k=self.kernel_size[i])</exp
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/neural_style.py">
+    <entry file="file://$PROJECT_DIR$/get_features.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="277">
+          <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/preprocess.py">
+    <entry file="file://C:/Program Files/Python36/Lib/site-packages/tensorflow/python/framework/ops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+        <state relative-caret-position="384">
+          <caret line="1874" selection-start-line="1874" selection-end-line="1874" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sound2image.py">
+    <entry file="file://C:/Program Files/Python36/Lib/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="184">
+          <caret line="65" selection-start-line="65" selection-end-line="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/Model.py">
+    <entry file="file://C:/Program Files/Python36/Lib/site-packages/tensorflow/contrib/opt/python/training/external_optimizer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="231" column="41" lean-forward="true" selection-start-line="231" selection-start-column="41" selection-end-line="231" selection-end-column="41" />
+        <state relative-caret-position="288">
+          <caret line="206" selection-start-line="206" selection-end-line="206" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/neural_style.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="1057" column="32" selection-start-line="1057" selection-start-column="32" selection-end-line="1057" selection-end-column="32" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>

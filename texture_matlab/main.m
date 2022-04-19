@@ -2,8 +2,8 @@ clear
 close all
 clc
 
-N = 3e6;
-num_clusters = 20;
+N = 3e5;
+num_clusters = 5;
 
 r = ones(N,1)*0;
 g = ones(N,1)*0;
@@ -36,7 +36,7 @@ for i = 1 : N
 %     disp(i)
     if (ismember(i,indx)), continue; end
     for j = 1 : length(indx)
-        dist_(j) = min(exp(sqrt(sum( (d(i,:) - d(indx(j),:)).^2 ))^-1), 1e100);
+        dist_(j) = min((sqrt(sum( (d(i,:) - d(indx(j),:)).^2 ))^-2), 1e50);
     end
     sum_dist = sum(dist_);
     dist_ = dist_ ./ sum_dist;
@@ -49,7 +49,7 @@ for i = 1 : N
 end
 
 Bfig(1)
-scatter(d(:,1), d(:,2), 4, rgb_, 'filled')
+scatter(d(:,1), d(:,2), 20, rgb_, 'filled')
 % pause(0.001)
     
 

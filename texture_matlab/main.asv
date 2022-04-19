@@ -2,15 +2,16 @@ clear
 close all
 clc
 
-N = 3e6;
+N = 3e5;
+num_clusters = 200;
 
 r = ones(N,1)*0;
 g = ones(N,1)*0;
 b = ones(N,1)*0;
 
 rgb_ = rand(N,3);
-rgb_c = zeros(10,3);
-indx = randsample(N,10);
+rgb_c = zeros(num_clusters,3);
+indx = randsample(N,num_clusters);
 for i = 1 : length(indx)
     rgb_(indx(i),:) = rand(1,3);
     rgb_c(i,:) = rgb_(indx(i),:);
@@ -35,7 +36,7 @@ for i = 1 : N
 %     disp(i)
     if (ismember(i,indx)), continue; end
     for j = 1 : length(indx)
-        dist_(j) = exp(sqrt(sum( (d(i,:) - d(indx(j),:)).^2 ))^-10);
+        dist_(j) = min(exp(sqrt(sum( (d(i,:) - d(indx(j),:)).^2 ))^-2), 1e100);
     end
     sum_dist = sum(dist_);
     dist_ = dist_ ./ sum_dist;
