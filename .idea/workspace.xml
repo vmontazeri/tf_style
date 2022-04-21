@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0d287ea-4c5c-45b4-8be7-ce192ed5bffe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/get_features.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural-style-audio-tf-master/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_output/result/content.png" beforeDir="false" afterPath="$PROJECT_DIR$/image_output/result/content.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image_output/result/meta_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/image_output/result/meta_data.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image_output/result/style_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/image_output/result/style_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/intermediate_outputs/main.asv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/neural_style.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_style.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/texture_matlab/main.asv" beforeDir="false" afterPath="$PROJECT_DIR$/texture_matlab/main.asv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/texture_matlab/main.m" beforeDir="false" afterPath="$PROJECT_DIR$/texture_matlab/main.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/texture_matlab/main.asv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,8 +70,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/neural_style.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="1057" column="32" selection-start-line="1057" selection-start-column="32" selection-end-line="1057" selection-end-column="32" />
+            <state relative-caret-position="504">
+              <caret line="1057" column="26" selection-start-line="1057" selection-start-column="26" selection-end-line="1057" selection-end-column="26" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -330,13 +325,13 @@
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49752066" visible="true" weight="0.16067538" />
-      <window_info id="Structure" order="1" sideWeight="0.5024793" side_tool="true" visible="true" weight="0.16067538" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49740395" visible="true" weight="0.16067538" />
+      <window_info id="Structure" order="1" sideWeight="0.5025961" side_tool="true" visible="true" weight="0.16067538" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.37175494" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.37175494" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -554,8 +549,8 @@ mel_features = np.concatenate((mel_features, mel_features[:,:,:384-153,:]), 2)</
     </entry>
     <entry file="file://$PROJECT_DIR$/neural_style.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="1057" column="32" selection-start-line="1057" selection-start-column="32" selection-end-line="1057" selection-end-column="32" />
+        <state relative-caret-position="504">
+          <caret line="1057" column="26" selection-start-line="1057" selection-start-column="26" selection-end-line="1057" selection-end-column="26" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

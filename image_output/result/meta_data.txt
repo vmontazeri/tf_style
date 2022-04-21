@@ -1,6 +1,6 @@
 image_name: result
 content: clustering.jpg
-styles[0]: 1.0 * the_scream.jpg
+styles[0]: 1.0 * lion.jpg
 init_type: random
 content_weight: 5.0
 style_weight: 10000.0

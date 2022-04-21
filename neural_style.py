@@ -1055,7 +1055,7 @@ def render_video():
 def main():
   global args
   args = parse_args()
-  args.style_imgs = ["the_scream.jpg"]
+  args.style_imgs = ["lion.jpg"]
   args.content_img = "clustering.jpg"
   # args.content_layers = ['conv5_4']
   args.init_img_type = 'random'
