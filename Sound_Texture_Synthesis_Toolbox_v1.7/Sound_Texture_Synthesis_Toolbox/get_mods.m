@@ -32,7 +32,7 @@ P.comp_exponent = 0.3;
 
 P.desired_rms = .01; %.1 was too high; some files clipped during wavwrite; .01 prevents clipping but is a little low for laptop speakers
 P.audio_sr = 20000;
-P.max_orig_dur_s = 7;
+P.max_orig_dur_s = 5;
 
 P.orig_sound_filename = 'Applause_-_enthusiastic2.wav';
 P.orig_sound_folder = 'Example_Textures/'; %must be a string, should have a slash at the end. If this is an empty string, Matlab will search its path for the file.
@@ -81,4 +81,4 @@ synth_S = measure_texture_stats_copy(in_, P, imp_win, audio_filts, mod_filts);
 
 Bfig(-1)
 imagesc(synth_S.mod_power)
-1;
+title(P.orig_sound_filename, 'Interpreter', 'none')
