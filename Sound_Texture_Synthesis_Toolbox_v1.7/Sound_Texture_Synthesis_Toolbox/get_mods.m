@@ -1,6 +1,8 @@
-clear
+function out_ = get_mods(file_name, plot_)
+% clear
+
 % close all
-clc
+% clc
 
 % in_ = sin(1:20000);
 
@@ -34,10 +36,10 @@ P.desired_rms = .01; %.1 was too high; some files clipped during wavwrite; .01 p
 P.audio_sr = 20000;
 P.max_orig_dur_s = 5;
 
-P.orig_sound_filename = 'Applause_-_enthusiastic2.wav';
-P.orig_sound_folder = 'Example_Textures/'; %must be a string, should have a slash at the end. If this is an empty string, Matlab will search its path for the file.
+P.orig_sound_filename = file_name;
+% P.orig_sound_folder = 'Example_Textures/'; %must be a string, should have a slash at the end. If this is an empty string, Matlab will search its path for the file.
 
-[temp, sr] = audioread([P.orig_sound_folder P.orig_sound_filename]);
+[temp, sr] = audioread( P.orig_sound_filename );
 if size(temp,2)==2
     temp = temp(:,1); %turn stereo files into mono
 end
@@ -60,7 +62,7 @@ in_ = in_/rms(in_)*P.desired_rms;
 ds_factor=P.audio_sr/P.env_sr; %factor by which envelopes are downsampled
 synth_dur_smp = ceil(length(in_)/ds_factor)*ds_factor; %ensures that length in samples is an integer multiple of envelope sr
 
-[audio_filts, audio_cutoffs_Hz] = make_erb_cos_filters(synth_dur_smp, P.audio_sr, P.N_audio_channels, P.low_audio_f, P.hi_audio_f);
+[audio_filts, ~] = make_erb_cos_filters(synth_dur_smp, P.audio_sr, P.N_audio_channels, P.low_audio_f, P.hi_audio_f);
 
 imp_win = set_measurement_window(synth_dur_smp, P.measurement_windowing, P);
 
@@ -72,13 +74,16 @@ elseif P.use_zp==0
 end
 
 
-[mod_filts,mod_cfreqs_Hz,mod_freqs] = make_constQ_cos_filters(mod_filt_length, P.env_sr, P.N_mod_channels, P.low_mod_f, P.hi_mod_f, P.mod_filt_Q_value);
+[mod_filts,~,~] = make_constQ_cos_filters(mod_filt_length, P.env_sr, P.N_mod_channels, P.low_mod_f, P.hi_mod_f, P.mod_filt_Q_value);
 
-env_ac_filts = [];
-mod_C1_filts = [];
-mod_C2_filts = [];
+% env_ac_filts = [];
+% mod_C1_filts = [];
+% mod_C2_filts = [];
 synth_S = measure_texture_stats_copy(in_, P, imp_win, audio_filts, mod_filts);
 
+if(plot_)
 Bfig(-1)
 imagesc(synth_S.mod_power)
 title(P.orig_sound_filename, 'Interpreter', 'none')
+end
+out_ = synth_S.mod_power;

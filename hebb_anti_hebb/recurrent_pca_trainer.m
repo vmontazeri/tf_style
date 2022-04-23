@@ -1,4 +1,4 @@
-function [w, c, p , s] = recurrent_pca_trainer( X, c, w, LR, n_epochs, verbose )
+function [w, c, p, s] = recurrent_pca_trainer( X, c, w, LR, n_epochs, verbose )
 
 % generalized Hebbian learning
 % Note the elements across the memory and input seq should be correlated
@@ -32,10 +32,8 @@ for epoch = 1 : n_epochs
     dw = zeros(2,2);
     p = zeros(num_seqs, num_features);
     s = zeros(num_seqs, num_features);
-    
-    %     if(epoch<30 && epoch>5), LR = 0.001; end
-    if(epoch>30), LR = LR/2; end
-    %     if(epoch>30), LR = LR/1.2; end
+        
+    if(epoch>n_epochs/2), LR = LR/2; end    
     
     for seq_num = 1 : num_seqs
         
