@@ -1,4 +1,4 @@
-function out_ = get_mods(file_name, plot_)
+function out_ = get_mods(file_name, plot_, add_noise)
 % clear
 
 % close all
@@ -40,6 +40,8 @@ P.orig_sound_filename = file_name;
 % P.orig_sound_folder = 'Example_Textures/'; %must be a string, should have a slash at the end. If this is an empty string, Matlab will search its path for the file.
 
 [temp, sr] = audioread( P.orig_sound_filename );
+temp = temp(:);
+temp = [temp; temp; temp];
 if size(temp,2)==2
     temp = temp(:,1); %turn stereo files into mono
 end
@@ -58,6 +60,9 @@ new_l = ceil(P.max_orig_dur_s*P.audio_sr/ds_factor/2)*ds_factor*2; %to accomodat
     end
 in_ = temp(1:new_l);
 in_ = in_/rms(in_)*P.desired_rms;
+ns = randn(size(in_));
+ns = P.desired_rms * ns / rms(ns);
+in_ = in_ + ns * 0.5;
 
 ds_factor=P.audio_sr/P.env_sr; %factor by which envelopes are downsampled
 synth_dur_smp = ceil(length(in_)/ds_factor)*ds_factor; %ensures that length in samples is an integer multiple of envelope sr

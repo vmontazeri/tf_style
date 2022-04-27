@@ -24,6 +24,7 @@ end
 % rgb_(300,:) = [0,1,0];
 
 d = rand(N,2);
+
 % d = [linspace(0,1,1e6); linspace(0,1,1e6)]';
 
 % c1 = d(10,:);
